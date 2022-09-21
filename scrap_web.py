@@ -58,7 +58,7 @@ get_all_urls()
 def get_all_words():
     urls= get_all_urls()
     words=[]
-    for url in urls[:5]:
+    for url in urls:
         lyrics= extract_lyrics(url= url) 
         words.extend(lyrics)
 
