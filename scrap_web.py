@@ -2,6 +2,7 @@ import collections
 from pprint import pprint
 from pydoc import pager
 from typing import Counter
+import json
 
 import requests 
 from bs4 import BeautifulSoup
@@ -58,11 +59,14 @@ get_all_urls()
 def get_all_words():
     urls= get_all_urls()
     words=[]
-    for url in urls:
+    for url in urls[:20]:
         lyrics= extract_lyrics(url= url) 
         words.extend(lyrics)
 
-    counter= Counter(words)
+    with open("data.json", "w") as f:
+        json.dump(words, f,indent=4)
+
+    counter= Counter([w for w in words if len (w) >5])
     most_common_words= counter.most_common(10)
     pprint(most_common_words)
 
